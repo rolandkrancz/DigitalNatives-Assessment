@@ -76,6 +76,30 @@ test('999999999999999', () => {
     expect(converter(999999999999999)).toEqual('nine hundred and ninety-nine trillion nine hundred and ninety-nine billion nine hundred and ninety-nine million nine hundred and ninety-nine thousand nine hundred and ninety-nine');
 })
 
+test('Zero', () => {
+    expect(converter(0)).toEqual('zero');
+})
+
+test('Negative', () => {
+    expect(converter(-420)).toEqual('minus four hundred and twenty');
+})
+
+test('Invalid input: float', () => {
+    expect(converter(1.5)).toEqual('Invalid input - please enter an integer');
+})
+
+test('Invalid input: string', () => {
+    expect(converter("Hey")).toEqual('Invalid input - please enter an integer');
+})
+
+test('Invalid input: undefined', () => {
+    expect(converter(undefined)).toEqual('Invalid input - please enter an integer');
+})
+
+test('Invalid input: null', () => {
+    expect(converter(null)).toEqual('Invalid input - please enter an integer');
+})
+
 // Examples
 
 test('7', () => {

@@ -17,7 +17,6 @@ export function converter (num) {
         let result = '';
         const hundreds = Math.floor(num / 100);
         const remainder = num - (hundreds * 100);
-        console.log(num);
         
         if(hundreds) {
             result += (SINGLES[hundreds] + ' hundred ');
@@ -43,7 +42,24 @@ export function converter (num) {
 
         return result;
     }
-    
+
+    /* -------- */
+
+    if(num === 0) {
+        return 'zero';
+    }
+
+    if(num < 0) {
+        result += 'minus ';
+        num = Math.abs(num);
+    }
+
+    if(num % 1 != 0 || num === null) {
+        return 'Invalid input - please enter an integer';
+    }
+
+    /* -------- */
+
     ORDERS.forEach(order => {
         if(num >= order.value) {
             const group = Math.floor(num / order.value);
