@@ -12,7 +12,7 @@ export function converter (num) {
         result += 'minus ';
         num = Math.abs(num);
     }
-    if(num % 1 != 0 || num === null) {
+    if(num % 1 != 0 || num === null || Math.abs(num) > 999999999999999) {
         return ERROR_INVALID_INPUT;
     }
 

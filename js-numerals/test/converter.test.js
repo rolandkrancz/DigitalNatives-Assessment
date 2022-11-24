@@ -97,6 +97,14 @@ test('Invalid input: null', () => {
     expect(converter(null)).toEqual(ERROR_INVALID_INPUT);
 })
 
+test('Invalid input: Too big number', () => {
+    expect(converter(1000000000000000)).toEqual(ERROR_INVALID_INPUT);
+})
+
+test('Invalid input: Too big negative number', () => {
+    expect(converter(-1000000000000000)).toEqual(ERROR_INVALID_INPUT);
+})
+
 // Examples
 
 test('7', () => {
