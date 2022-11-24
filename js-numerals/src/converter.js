@@ -1,4 +1,4 @@
-import { SINGLES, TENS, TEENS, ORDERS, ERROR_INVALID_INPUT } from "./constants";
+import { SINGLES, TENS, TEENS, ORDERS, ERROR_INVALID_INPUT } from "./constants.js";
 
 export function converter (num) {
     let result = '';

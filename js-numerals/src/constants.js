@@ -10,4 +10,4 @@ export const ORDERS = [
     {value: 1, word: ''}
 ]
 
-export const ERROR_INVALID_INPUT = 'Invalid input - please enter an integer';
+export const ERROR_INVALID_INPUT = 'Invalid input - please enter a valid integer';

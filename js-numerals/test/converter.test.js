@@ -1,5 +1,5 @@
-import { converter } from "./converter";
-import { ERROR_INVALID_INPUT } from "./constants";
+import { converter } from "../src/converter.js";
+import { ERROR_INVALID_INPUT } from "../src/constants.js";
 
 test('1', () => {
     expect(converter(1)).toEqual('one');
