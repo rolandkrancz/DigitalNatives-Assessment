@@ -4,6 +4,20 @@ export function converter (num) {
     const TEENS = ['','eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
     let result = '';
 
+
+    const convertThreeDigit = (num) => {
+        let result = '';
+        const hundreds = Math.floor(num / 100);
+        const remainder = num - hundreds * 100;
+        if(hundreds) result += (SINGLES[hundreds] + ' hundred ');
+        if(remainder) {
+            if(hundreds) result += 'and '
+            result += convertTwoDigit(remainder);
+        } 
+
+        return result.trimEnd();
+    }
+
     const convertTwoDigit = (num) => {
         let result = '';
 
@@ -15,7 +29,10 @@ export function converter (num) {
         return result;
     }
 
-    if(num < 100) {
+    if(num < 1000) {
+        result += convertThreeDigit(num);
+    }
+    else if(num < 100) {
         result += convertTwoDigit(num);
     }
 
