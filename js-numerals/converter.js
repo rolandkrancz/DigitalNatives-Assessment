@@ -3,38 +3,59 @@ export function converter (num) {
     const TENS = ['','ten','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
     const TEENS = ['','eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
     let result = '';
-
+    let isFirstConversion = true;
 
     const convertThreeDigit = (num) => {
         let result = '';
         const hundreds = Math.floor(num / 100);
-        const remainder = num - hundreds * 100;
-        if(hundreds) result += (SINGLES[hundreds] + ' hundred ');
-        if(remainder) {
-            if(hundreds) result += 'and '
-            result += convertTwoDigit(remainder);
-        } 
+        const remainder = num - (hundreds * 100);
 
+        if(hundreds) {
+            result += (SINGLES[hundreds] + ' hundred ');
+            isFirstConversion = false;
+        }
+        if(remainder) {
+            result += convertTwoDigit(remainder);
+        }
+        
         return result.trimEnd();
     }
 
     const convertTwoDigit = (num) => {
         let result = '';
 
-        if(num < 10) result = SINGLES[num];
-        else if(num % 10 === 0) result = TENS[num / 10];
-        else if(num < 20) result = TEENS[num % 10];
-        else result = TENS[Math.floor(num / 10)] + '-' + SINGLES[num % 10];
+        if(!isFirstConversion) result += 'and ';
+
+        if(num < 10) result += SINGLES[num];
+        else if(num % 10 === 0) result += TENS[num / 10];
+        else if(num < 20) result += TEENS[num % 10];
+        else result += TENS[Math.floor(num / 10)] + '-' + SINGLES[num % 10];
+        isFirstConversion = false;
 
         return result;
     }
-
-    if(num < 1000) {
-        result += convertThreeDigit(num);
+    
+    if(num >= 1000000000) {
+        result += convertThreeDigit(Math.floor(num / 1000000000)) + ' billion ';
+        num -= Math.floor(num / 1000000000) * 1000000000;
     }
-    else if(num < 100) {
+    if(num >= 1000000) {
+        result += convertThreeDigit(Math.floor(num / 1000000)) + ' million ';
+        num -= Math.floor(num / 1000000) * 1000000;
+    }
+    if(num >= 1000) {
+        result += convertThreeDigit(Math.floor(num / 1000)) + ' thousand ';
+        num -= Math.floor(num / 1000) * 1000;
+    }
+    if(num >= 100) {
+        result += convertThreeDigit(num);
+        num = 0;
+    }
+    if(num > 0) {
         result += convertTwoDigit(num);
     }
 
-    return result;
+    return result.trimEnd();
 }
+
+console.log(converter(1000));
