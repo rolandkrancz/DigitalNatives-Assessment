@@ -5,11 +5,19 @@ export function converter (num) {
     let result = '';
     let isFirstConversion = true;
 
+    const ORDERS = [
+        {value: 1000000000, word: 'billion'},
+        {value: 1000000, word: 'million'},
+        {value: 1000, word: 'thousand'},
+        {value: 1, word: ''}
+    ]
+
     const convertThreeDigit = (num) => {
         let result = '';
         const hundreds = Math.floor(num / 100);
         const remainder = num - (hundreds * 100);
-
+        console.log(num);
+        
         if(hundreds) {
             result += (SINGLES[hundreds] + ' hundred ');
             isFirstConversion = false;
@@ -35,27 +43,14 @@ export function converter (num) {
         return result;
     }
     
-    if(num >= 1000000000) {
-        result += convertThreeDigit(Math.floor(num / 1000000000)) + ' billion ';
-        num -= Math.floor(num / 1000000000) * 1000000000;
-    }
-    if(num >= 1000000) {
-        result += convertThreeDigit(Math.floor(num / 1000000)) + ' million ';
-        num -= Math.floor(num / 1000000) * 1000000;
-    }
-    if(num >= 1000) {
-        result += convertThreeDigit(Math.floor(num / 1000)) + ' thousand ';
-        num -= Math.floor(num / 1000) * 1000;
-    }
-    if(num >= 100) {
-        result += convertThreeDigit(num);
-        num = 0;
-    }
-    if(num > 0) {
-        result += convertTwoDigit(num);
-    }
+    ORDERS.forEach(order => {
+        if(num >= order.value) {
+            const group = Math.floor(num / order.value);
+            result += convertThreeDigit(group);
+            result += ` ${order.word} `;
+            num -= (group * order.value);
+        }
+    })
 
     return result.trimEnd();
 }
-
-console.log(converter(1000));

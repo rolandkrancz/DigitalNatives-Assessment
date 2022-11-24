@@ -68,7 +68,6 @@ test('32000000001', () => {
     expect(converter(32000000001)).toEqual('thirty-two billion and one');
 })
 
-
 // Examples
 
 test('7', () => {
