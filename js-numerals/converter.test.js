@@ -68,6 +68,14 @@ test('32000000001', () => {
     expect(converter(32000000001)).toEqual('thirty-two billion and one');
 })
 
+test('1000000000000', () => {
+    expect(converter(1000000000000)).toEqual('one trillion');
+})
+
+test('999999999999999', () => {
+    expect(converter(999999999999999)).toEqual('nine hundred and ninety-nine trillion nine hundred and ninety-nine billion nine hundred and ninety-nine million nine hundred and ninety-nine thousand nine hundred and ninety-nine');
+})
+
 // Examples
 
 test('7', () => {

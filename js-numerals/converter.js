@@ -6,6 +6,7 @@ export function converter (num) {
     let isFirstConversion = true;
 
     const ORDERS = [
+        {value: 1000000000000, word: 'trillion'},
         {value: 1000000000, word: 'billion'},
         {value: 1000000, word: 'million'},
         {value: 1000, word: 'thousand'},
