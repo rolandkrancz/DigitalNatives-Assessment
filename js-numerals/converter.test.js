@@ -1,11 +1,8 @@
 import { converter } from "./converter";
+import { ERROR_INVALID_INPUT } from "./constants";
 
 test('1', () => {
     expect(converter(1)).toEqual('one');
-})
-
-test('7', () => {
-    expect(converter(7)).toEqual('seven');
 })
 
 test('10', () => {
@@ -85,19 +82,19 @@ test('Negative', () => {
 })
 
 test('Invalid input: float', () => {
-    expect(converter(1.5)).toEqual('Invalid input - please enter an integer');
+    expect(converter(1.5)).toEqual(ERROR_INVALID_INPUT);
 })
 
 test('Invalid input: string', () => {
-    expect(converter("Hey")).toEqual('Invalid input - please enter an integer');
+    expect(converter("Hey")).toEqual(ERROR_INVALID_INPUT);
 })
 
 test('Invalid input: undefined', () => {
-    expect(converter(undefined)).toEqual('Invalid input - please enter an integer');
+    expect(converter(undefined)).toEqual(ERROR_INVALID_INPUT);
 })
 
 test('Invalid input: null', () => {
-    expect(converter(null)).toEqual('Invalid input - please enter an integer');
+    expect(converter(null)).toEqual(ERROR_INVALID_INPUT);
 })
 
 // Examples
