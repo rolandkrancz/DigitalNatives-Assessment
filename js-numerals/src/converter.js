@@ -1,6 +1,6 @@
 import { SINGLES, TENS, TEENS, ORDERS, ERROR_INVALID_INPUT } from "./constants.js";
 
-export function converter (num) {
+export function converter (num, englishStyle) {
     let result = '';
     let isFirstConversion = true;
 
@@ -19,15 +19,33 @@ export function converter (num) {
     /* Perform conversion */
     ORDERS.forEach(order => {
         if(num >= order.value) {
-            const group = Math.floor(num / order.value);
-            result += convertThreeDigit(group, isFirstConversion);
-            result += ` ${order.word} `;
-            num -= (group * order.value);
+            if(isBritishAndSpecial(num, englishStyle)) {
+                result += getInBritish(num, isFirstConversion);
+                num = 0;
+            } else {
+                const group = Math.floor(num / order.value);
+                result += getInAmerican(group, order.word, isFirstConversion);
+                num -= (group * order.value);
+            }
             isFirstConversion = false;
         }
     })
 
     return result.trimEnd();
+}
+
+const isBritishAndSpecial = (num, englishStyle) => {
+    return (englishStyle === "british" && num > 1000 && num < 2000);
+}
+
+const getInBritish = (num, isFirstConversion) => {
+    const firstTwo = convertTwoDigit(Math.floor(num / 100), isFirstConversion);
+    const secondTwo = convertTwoDigit((num % 100), false);
+    return firstTwo + " hundred " + secondTwo; 
+}
+
+const getInAmerican = (num, orderWord, isFirstConversion) => {
+    return convertThreeDigit(num, isFirstConversion) + ` ${orderWord} `;
 }
 
 const convertThreeDigit = (num, isFirstConversion) => {

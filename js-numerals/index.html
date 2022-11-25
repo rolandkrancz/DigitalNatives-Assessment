@@ -20,9 +20,12 @@
             <header>
                 <h1>Arabic number conversion tool</h1>
             </header>
-
             <form>
-                <input id="input" placeholder="Enter a number">
+                <input id="input" type="input" placeholder="Enter a number">
+                <div class="british-selector">
+                    <label for="isBritish">Use British english:</label>
+                    <input id="isBritish" type="checkbox" name="isBritish">
+                </div>
                 <button type="submit" id="submit">CONVERT</button>
             </form>
             <p id="output"></p>

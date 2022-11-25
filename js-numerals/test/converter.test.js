@@ -138,3 +138,17 @@ test('342251', () => {
 test('1300420', () => {
     expect(converter(1300420)).toEqual('one million three hundred thousand four hundred and twenty');
 })
+
+// British
+
+test('British 1999', () => {
+    expect(converter(1999, 'british')).toEqual('nineteen hundred and ninety-nine');
+})
+
+test('British 2001', () => {
+    expect(converter(2001, 'british')).toEqual('two thousand and one');
+})
+
+test('British 1001999', () => {
+    expect(converter(1001999, 'british')).toEqual('one million and nineteen hundred and ninety-nine');
+})
