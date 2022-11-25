@@ -1,5 +1,14 @@
 # Arabic number conversion tool
 
+This is my solution for Digital Natives first assessment, js-numerals.
+
+Because of the simplicity of the task I used plain html, css, javascript, and Jest for testing.
+
+[See it live](https://rolandkrancz.github.io/DigitalNatives-Assessment/)
+
+
+## Task description:
+
 Create a web-based solution that converts numeric input into the English phrase of that number. 
 
 For example:
