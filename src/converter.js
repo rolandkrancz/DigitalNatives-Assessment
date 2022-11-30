@@ -2,7 +2,7 @@ import { SINGLES, TENS, TEENS, ORDERS, ERROR_INVALID_INPUT } from "./constants.j
 
 export function converter (num, englishStyle) {
     let result = '';
-    let isFirstConversion = true;
+    const isBiggerThanThreeDigit = (num >= 1000);
 
     /* Perform input checks */
     if(num === 0) {
@@ -20,14 +20,14 @@ export function converter (num, englishStyle) {
     ORDERS.forEach(order => {
         if(num >= order.value) {
             if(isBritishAndSpecial(num, englishStyle)) {
-                result += getInBritish(num, isFirstConversion);
+                result += getInBritish(num);
                 num = 0;
             } else {
                 const group = Math.floor(num / order.value);
-                result += getInAmerican(group, order.word, isFirstConversion);
+                const lastThreeOfBigNum = isBiggerThanThreeDigit && num < 1000;
+                result += getInAmerican(group, order.word, lastThreeOfBigNum);
                 num -= (group * order.value);
             }
-            isFirstConversion = false;
         }
     })
 
@@ -38,17 +38,22 @@ const isBritishAndSpecial = (num, englishStyle) => {
     return (englishStyle === "british" && num > 1000 && num < 2000);
 }
 
-const getInBritish = (num, isFirstConversion) => {
-    const firstTwo = convertTwoDigit(Math.floor(num / 100), isFirstConversion);
-    const secondTwo = convertTwoDigit((num % 100), false);
-    return firstTwo + " hundred " + secondTwo; 
+const getInBritish = (num) => {
+    let result = '';
+
+    const firstTwo = convertTwoDigit(Math.floor(num / 100));
+    const secondTwo = convertTwoDigit((num % 100));
+    result += firstTwo + ' hundred';
+    if(secondTwo) result += ' and ' + secondTwo;
+
+    return result;
 }
 
-const getInAmerican = (num, orderWord, isFirstConversion) => {
-    return convertThreeDigit(num, isFirstConversion) + ` ${orderWord} `;
+const getInAmerican = (num, orderWord, lastThreeOfBigNum) => {
+    return convertThreeDigit(num, lastThreeOfBigNum) + ` ${orderWord} `;
 }
 
-const convertThreeDigit = (num, isFirstConversion) => {
+const convertThreeDigit = (num, lastThreeOfBigNum) => {
     let result = '';
     const hundreds = Math.floor(num / 100);
     const remainder = num - (hundreds * 100);
@@ -57,19 +62,15 @@ const convertThreeDigit = (num, isFirstConversion) => {
         result += (SINGLES[hundreds] + ' hundred ');
     } 
     if(remainder) {
-        if(isFirstConversion && hundreds) result += 'and ';
-        result += convertTwoDigit(remainder, isFirstConversion);
+        if(lastThreeOfBigNum || hundreds) result += 'and ';
+        result += convertTwoDigit(remainder);
     }
     
     return result.trimEnd();
 }
 
-const convertTwoDigit = (num, isFirstConversion) => {
+const convertTwoDigit = (num) => {
     let result = '';
-
-    if(!isFirstConversion) {
-        result += 'and ';
-    }
 
     if(num < 10) {
         result += SINGLES[num];
