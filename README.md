@@ -6,6 +6,7 @@ Because of the simplicity of the task I used plain html, css, javascript, and Je
 
 [See it live](https://rolandkrancz.github.io/DigitalNatives-Assessment/)
 
+[Second assessment](https://github.com/rolandkrancz/DigitalNatives-Assessment-2)
 
 ## Task description:
 
